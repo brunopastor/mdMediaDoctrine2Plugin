@@ -1,0 +1,37 @@
+sf_media_doctrine:
+  url:    sf_media_doctrine
+  params: { module: sfMediaDoctrine, action: list }
+
+sf_media_doctrine_dir_create:
+  url:    sf_media_doctrine/dir_create
+  class:  sfRequestRoute
+  params: { module: sfMediaDoctrine, action: createAlbum }
+  requirements: { sf_method: post }
+
+sf_media_doctrine_dir_delete:
+  url:    sf_media_doctrine/dir_delete
+  class:  sfRequestRoute
+  params: { module: sfMediaDoctrine, action: deleteDirectory }
+  requirements: { sf_method: get }
+
+sf_media_doctrine_file_create:
+  url:    sf_media_doctrine/file_create
+  class:  sfRequestRoute
+  params: { module: sfMediaDoctrine, action: createFile }
+  requirements: { sf_method: post }
+
+sf_media_doctrine_file_delete:
+  url:    sf_media_doctrine/file_delete
+  params: { module: sfMediaDoctrine, action: deleteFile }
+  
+sf_media_doctrine_file_sort:
+  url:    sf_media_doctrine/file_sort
+  params: { module: sfMediaDoctrine, action: sortFile }
+  
+sf_media_doctrine_update_list:
+  url:    sf_media_doctrine/asset_update
+  params: { module: sfMediaDoctrine, action: assetUpdate }
+  
+sf_media_doctrine_change_avatar:
+  url:    sf_media_doctrine/change_avatar
+  params: { module: sfMediaDoctrine, action: changeAvatar }

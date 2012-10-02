@@ -1,0 +1,193 @@
+mdAssetAlbum:
+  actAs:
+    Timestampable: ~
+<?php if( sfConfig::get( 'sf_plugins_media_commentable', false ) ):  ?>
+    Commentable: ~
+<?php endif; ?>
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    object_class:
+       type: string(32)
+       notnull: true
+    object_id:
+       type: integer
+       notnull: true
+    name:
+      type: string(64)
+      notnull: true
+    description:
+      type:	string(255)
+    relative_path:
+      type: string(255)
+    type:
+      type: enum
+      values: [document, pdf, bin, image, video, audio, text, tarball]
+    md_asset_file_id:
+      type: integer
+  relations:
+    mdAsset:
+      class: mdAssetFile
+      local: md_asset_file_id
+      foreign: id
+      type: one
+      foreignType: one
+  indexes:
+    uk_object_class_object_id:
+      fields: [object_class, object_id]
+
+#########################################
+# PHYSICAL: name, mime-type, size...
+# IMAGES, VIDEOS,  FILES
+
+# VIRTUAL
+# YOUTUBE, VIMEO, ISSUU
+#########################################
+
+mdAsset:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    position:
+      type: integer
+      default: 0
+    md_album_id:
+      type: integer
+      notnull: true
+
+mdAssetFile:
+  inheritance:
+    type:     concrete
+    extends:  mdAsset
+  actAs:
+    Timestampable: ~
+  columns:
+    filename:
+      type: string(64)
+      notnull: true
+    description:
+      type: string(255)
+    extension:
+      type: string(8)
+    original_extension:
+      type: string(8)
+    type:
+      type: string(32)
+    filesize:
+      type: integer
+  indexes:
+    uk_album_filename:
+      fields: [md_album_id, filename]
+      type: unique
+  relations:
+    mdAssetAlbum:
+      class: mdAssetAlbum
+      local: md_album_id
+      foreign: id
+      type: one
+      foreignAlias: mdAssets
+      onDelete: CASCADE
+
+########################################
+
+mdAssetYoutube:
+  inheritance:
+    type:     concrete
+    extends:  mdAsset
+  columns:
+    name:
+      type: string(64)
+      notnull: true
+    src:
+      type: string(255)
+      notnull: true
+    code:
+      type: string(64)
+      notnull: true
+    duration:
+      type: string(64)
+      notnull: true
+    description:
+      type:	string(255)
+    path:
+      type: string(255)
+    avatar:
+      type: string(255)
+  relations:
+    mdAssetAlbum:
+      class: mdAssetAlbum
+      local: md_album_id
+      foreign: id
+      type: one
+      foreignAlias: mdAssets
+      onDelete: CASCADE
+      
+mdAssetVimeo:
+  inheritance:
+    type:     concrete
+    extends:  mdAsset
+  columns:
+    vimeo_url:
+      type: string(64)
+      notnull: true      
+    # <title>Meet the office</title>
+    title:
+      type: string(255)
+      notnull: true
+    # http://player.vimeo.com/video/27582408
+    src:
+      type: string(255)
+      notnull: true
+    # <video_id>757219</video_id> 
+    duration:
+      type: string(64)
+      notnull: true
+    description:
+      type:	string(512)      
+    # <thumbnail_url>http://90.media.vimeo.com/d1/5/38/21/85/thumbnail-38218529.jpg</thumbnail_url>
+    avatar:
+      type: string(255)
+    # <thumbnail_width>160</thumbnail_width>      
+    avatar_width:
+      type: integer(1)
+    # <thumbnail_height>120</thumbnail_height>      
+    avatar_height:
+      type: integer(1)      
+    # <author_name>Blake Whitman</author_name>
+    author_name:
+      type: string(255)
+    # <author_url>http://www.vimeo.com/blakewhitman</author_url>
+    author_url:
+      type: string(255)
+  relations:
+    mdAssetAlbum:
+      class: mdAssetAlbum
+      local: md_album_id
+      foreign: id
+      type: one
+      foreignAlias: mdAssets
+      onDelete: CASCADE
+      
+mdAssetIssuu:
+  inheritance:
+    type:     concrete
+    extends:  mdAsset  
+  columns:
+    documentId:
+      type: string(512)
+      notnull: true
+    embed_code:
+      type: text
+      notnull: true
+  relations:
+    mdAssetAlbum:
+      class: mdAssetAlbum
+      local: md_album_id
+      foreign: id
+      type: one
+      foreignAlias: mdAssets
+      onDelete: CASCADE

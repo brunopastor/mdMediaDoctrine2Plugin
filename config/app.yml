@@ -1,0 +1,70 @@
+all:
+  sf_media_browser:
+    albums_enabled:         false
+    
+    youtube_enabled:        false
+    
+    vimeo_enabled:          false
+    
+    issuu_enabled:          false
+    
+    root_dir:               /uploads/assets       # Browsable root directory relative to sf_web_dir
+    
+    thumbnails_enabled:     true           # Enable thumbnail creation on upload (requires sfThumnailPlugin)
+    
+    thumbnails_dir:         .thumbnails    # Directory name for storing thumbnails
+    
+    thumbnails_max_width:   80             # If thumbnails are enabled, you may define their size
+    
+    thumbnails_max_height:  80             
+    
+    assets_list:                           # Web assets used for the list template.
+      js:                                  #   You may change this to use your own.
+        - /js/jquery.dragndrop.min.js                    # This is presumed to be a bundle of jquery ui draggable and droppable.
+        - /mdMediaDoctrine2Plugin/js/list.jquery.js      # This included file is specific to sfMediaBrowser list template.
+        - /mdMediaDoctrine2Plugin/js/mdMediaDoctrine.js
+      css:
+        - /mdMediaDoctrine2Plugin/css/list.css
+
+    assets_widget:                          # Web assets for the form widget.
+      js:
+        - /mdMediaDoctrine2Plugin/js/WindowManager.js
+        - /mdMediaDoctrine2Plugin/js/form_widget.js
+      css:
+        - /mdMediaDoctrine2Plugin/css/form_widget.css
+
+    file_types:                           # define file_types is usefull for displaying icons in browser
+      document:                           # type of file (also used as default icon name)
+        extensions: [doc, xls, xcf, ai]   # extensions associated to this type
+        icon:       doc                   # optional icon file name, without extension
+      image:                              
+        extensions: [png, jpg, jpeg, gif] 
+      pdf:
+        extensions: [pdf]
+      bin:
+        extensions: [bin, exe, sh, bat, deb, yum]
+      video:
+        extensions: [wmv, avi, mpg, mpeg, flv, mp4, swf]
+      audio:
+        extensions: [ogg, mp3, flac, wma, cda]
+      text:
+        extensions: [txt, json]
+      tarball:
+        extensions: [tar, gz, zip, bzip, gzip, rar, 7z]
+
+  sfImageTransformPlugin:
+    
+    default_adapter: GD # GD or ImageMagick
+    
+    default_image:
+      mime_type: image/png
+      filename: Untitled.png
+      width: 100
+      height: 100
+      color: '#FFFFFF'
+      
+    font_dir: /usr/share/fonts/truetype/msttcorefonts
+    
+    mime_type:
+      auto_detect: true
+      library: gd_mime_type #  gd_mime_type (GD), Fileinfo (PECL), MIME_Type (PEAR)
