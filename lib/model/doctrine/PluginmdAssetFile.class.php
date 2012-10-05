@@ -145,13 +145,22 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
 
     // try to delete the thumbnail if exists
     try {
-      $files = sfFinder::type('file')->name($this->getFilename())->in($this->getRootPath());
-      foreach ($files as $file) {
+      $original_files = sfFinder::type('file')->name($this->getFilename())->in($this->getRootPath());
+      foreach ($original_files as $file) {
         @unlink($file);
       }
     } catch (sfException $e) {
       
     }
+    
+    try {
+      $cache_files = sfFinder::type('file')->name($this->getFilename())->in($this->getCachePath());
+      foreach ($cache_files as $file) {
+        @unlink($file);
+      }
+    } catch (sfException $e) {
+      
+    }    
     
   }
 
