@@ -233,7 +233,7 @@ class sfWidgetFormInputSWFUpload extends sfWidgetFormInputFile
             file_size_limit : "{$max_size}",
             file_upload_limit : 0,
             file_queue_limit : 0,
-            debug : true,
+            debug : false,
             prevent_swf_caching : true,
             preserve_relative_urls : false,
 

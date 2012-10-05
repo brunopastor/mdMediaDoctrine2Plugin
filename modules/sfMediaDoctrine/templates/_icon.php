@@ -1,7 +1,7 @@
 <?php use_helper('Text'); ?>
 
 <div class="icon">
-  <?php echo link_to(image_tag($file->getIcon()), $file->getUrl(NULL, NULL, true), array('target' => '_blank')) ?>
+  <?php echo link_to(image_tag($file->getIcon()), $file->getUrl(NULL, NULL, 'original'), array('target' => '_blank')) ?>
 </div>
 
 <label class="name"><?php echo truncate_text($file->getFilename(), 17) ?></label>

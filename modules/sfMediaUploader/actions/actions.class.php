@@ -66,7 +66,7 @@ class sfMediaUploaderActions extends sfActions {
     $base_dir = $object->getBaseDir();
     $object_dir = $object->getObjectDir();
 
-    $destination_dir = sfConfig::get('sf_web_dir') . sfConfig::get('app_sf_media_browser_root_dir') . '/' . $base_dir . '/' . $object_dir;
+    $destination_dir = sfConfig::get('sf_web_dir') . '/' . sfConfig::get('app_sf_media_browser_root_dir') . '/' . $base_dir . '/' . $object_dir;
 
     if (sfConfig::get('app_sf_media_browser_albums_enabled')) {
       

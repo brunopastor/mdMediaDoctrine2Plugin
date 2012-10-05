@@ -166,7 +166,7 @@ class BasesfMediaDoctrineActions extends sfActions {
       }
     }
 
-    return $this->renderText(mdBasicFunction::basic_json_response(true, array('response' => $md_asset_file->getUrl(220, 272))));
+    return $this->renderText(mdBasicFunction::basic_json_response(true, array('response' => $md_asset_file->getUrl(220, 272, 'resizecrop'))));
   } 
   
   /**

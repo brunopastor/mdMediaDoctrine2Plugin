@@ -14,12 +14,17 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
 
   private $dimensions;
 
+  public function getCachePath() {
+    $relative_path = $this->getRootPath();
+    return str_replace(sfConfig::get('app_sf_media_browser_root_dir', 'uploads'), 'cache', $relative_path);
+  }
+  
   public function getRootPath() {
-    return sfConfig::get('sf_web_dir ') . substr($this->getMdAssetAlbum()->getRelativePath(), 1);
+    return sfConfig::get('sf_web_dir') . $this->getMdAssetAlbum()->getRelativePath();
   }
 
   public function getPath() {
-    return sfConfig::get('sf_web_dir ') . substr($this->getMdAssetAlbum()->getRelativePath(), 1) . '/' . $this->getFilename();
+    return sfConfig::get('sf_web_dir') . $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
   }
 
   /**
@@ -33,18 +38,34 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
     return sfMediaBrowserUtils::getIconFromExtension(trim($this->getExtension(), '.'));
   }
 
-  public function getUrl($width, $height, $original = false) {
-    if ($original)
-      return $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
+  /**
+   * 
+   * @param integer $width
+   * @param integer $height
+   * @param enum(original, resize, crop, resizecrop) $code
+   * @param boolean $proportional
+   * @param integer $left
+   * @param integer $top
+   * @return string
+   * 
+   * @throws Exception
+   */
+  public function getUrl($width, $height, $code = 'original', $proportional = false, $left = 0, $top = 0) {
+    if ($code == 'original') return $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
 
-    $cacheRootDir = $this->getRootPath() . '/.' . $width . 'x' . $height;
+    $cacheRootDir = $this->getCachePath() . '/.' . $width . 'x' . $height;
     $cacheFile = $cacheRootDir . '/' . $this->getFilename();
 
     if (!file_exists($cacheFile)) {
       try {
         $img = new sfImage($this->getPath());
 
-        $img->resize($width, $height);
+        switch($code){
+          case 'resize': $img->resize($width, $height, true, $proportional); break;
+          case 'crop': $img->crop($left, $top, $width, $height); break;
+          case 'resizecrop': $img->resizecrop($width, $height); break;
+          default: throw new Exception('invalid code'); break;
+        }
 
         if (!sfMediaBrowserUtils::checkDirectory($cacheRootDir)) {
           throw new Exception('Filesystem fail');
@@ -52,11 +73,12 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
 
         $img->saveAs($cacheFile);
       } catch (Exception $e) {
+        echo $e->getMessage();
         return $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
       }
     }
 
-    return $this->getMdAssetAlbum()->getRelativePath() . '/.' . $width . 'x' . $height . '/' . $this->getFilename();
+    return str_replace(sfConfig::get('app_sf_media_browser_root_dir', 'uploads'), 'cache', $this->getMdAssetAlbum()->getRelativePath()) . '/.' . $width . 'x' . $height . '/' . $this->getFilename();
   }
 
   public function getSize() {
@@ -91,7 +113,7 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
 
     if ($this->isImage()) {
       if (!$this->dimensions) {
-        $this->dimensions = getimagesize(sfConfig::get('sf_web_dir ') . substr($this->getMdAssetAlbum()->getRelativePath(), 1) . '/' . $this->getFilename());
+        $this->dimensions = getimagesize(sfConfig::get('sf_web_dir') . $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename());
       }
       return $this->dimensions;
     }
