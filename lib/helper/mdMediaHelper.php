@@ -9,10 +9,10 @@
  * MODO DE USO:
  * use_helper('mdMedia')
  * 
- * use_url('productos/archivo.jpg', 200, 100, 'resize');
+ * get_url('productos/archivo.jpg', 200, 100, 'resize');
  */
 
-function use_url($filename, $width, $height, $code = 'original', $proportional = false, $left = 0, $top = 0) {
+function get_url($filename, $width, $height, $code = 'original', $proportional = false, $left = 0, $top = 0) {
   if($code == 'original') return '/' . sfConfig::get('app_sf_media_browser_root_dir') . '/' . $filename;
   
   $root_path = realpath(sfConfig::get('sf_web_dir') . '/' . sfConfig::get('app_sf_media_browser_root_dir'));
