@@ -10,6 +10,8 @@ all:
     
     root_dir:               uploads       # Browsable root directory relative to sf_web_dir
     
+    cache_dir:              cache
+    
     thumbnails_enabled:     true           # Enable thumbnail creation on upload (requires sfThumnailPlugin)
     
     thumbnails_dir:         .thumbnails    # Directory name for storing thumbnails

@@ -73,7 +73,7 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
 
         $img->saveAs($cacheFile);
       } catch (Exception $e) {
-        echo $e->getMessage();
+
         return $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
       }
     }
