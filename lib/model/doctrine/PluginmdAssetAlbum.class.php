@@ -24,4 +24,20 @@ abstract class PluginmdAssetAlbum extends BasemdAssetAlbum
       return false;
     }
   }
+  
+  public static function create($object){
+    $base_dir = $object->getBaseDir();
+    $object_dir = $object->getObjectDir();
+    $relative_path = sfConfig::get('app_sf_media_browser_root_dir') . '/' . $base_dir . '/' . $object_dir;
+    
+    $mdAssetAlbum = new mdAssetAlbum();
+    $mdAssetAlbum->setName('Defecto');
+    $mdAssetAlbum->setObjectId($object->getId());
+    $mdAssetAlbum->setObjectClass($object->getObjectClass());
+    $mdAssetAlbum->setRelativePath($relative_path);
+    $mdAssetAlbum->setDescription('Album por defecto');
+    $mdAssetAlbum->save();
+    
+    return $mdAssetAlbum;
+  }  
 }
