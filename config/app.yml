@@ -22,7 +22,7 @@ all:
     
     assets_list:                           # Web assets used for the list template.
       js:                                  #   You may change this to use your own.
-        - /js/jquery.dragndrop.min.js                    # This is presumed to be a bundle of jquery ui draggable and droppable.
+        - /mdMediaDoctrine2Plugin/js/jquery.dragndrop.min.js     # This is presumed to be a bundle of jquery ui draggable and droppable.
         - /mdMediaDoctrine2Plugin/js/list.jquery.js      # This included file is specific to sfMediaBrowser list template.
         - /mdMediaDoctrine2Plugin/js/mdMediaDoctrine.js
       css:
