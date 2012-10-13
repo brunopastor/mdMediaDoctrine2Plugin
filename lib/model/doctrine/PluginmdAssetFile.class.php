@@ -16,7 +16,7 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
 
   public function getCachePath() {
     $relative_path = $this->getRootPath();
-    return str_replace(sfConfig::get('app_sf_media_browser_root_dir', 'uploads'), 'cache', $relative_path);
+    return str_replace(sfConfig::get('app_sf_media_browser_root_dir', '/uploads'), '/cache', $relative_path);
   }
   
   public function getRootPath() {

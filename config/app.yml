@@ -8,9 +8,9 @@ all:
     
     issuu_enabled:          false
     
-    root_dir:               uploads       # Browsable root directory relative to sf_web_dir
+    root_dir:               /uploads       # Browsable root directory relative to sf_web_dir
     
-    cache_dir:              cache
+    cache_dir:              /cache
     
     thumbnails_enabled:     true           # Enable thumbnail creation on upload (requires sfThumnailPlugin)
     
