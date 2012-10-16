@@ -3,8 +3,8 @@
  * Parametros configurables:
  * all:
  *  sf_media_browser:
- *    root_dir: uploads
- *    cache_dir: cache
+ *    root_dir: /uploads
+ *    cache_dir: /cache
  * 
  * MODO DE USO:
  * use_helper('mdMedia')
