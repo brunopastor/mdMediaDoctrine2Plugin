@@ -48,7 +48,7 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
     }else{
       $mdAssetAlbum = $this->getAlbumes()->getFirst();
     }
-    return $mdAssetAlbum->hasAvatar();
+    return (!$mdAssetAlbum ? false : $mdAssetAlbum->hasAvatar());
   }
 
   /**
