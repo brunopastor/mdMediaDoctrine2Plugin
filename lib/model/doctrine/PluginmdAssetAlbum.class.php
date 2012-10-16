@@ -25,6 +25,14 @@ abstract class PluginmdAssetAlbum extends BasemdAssetAlbum
     }
   }
   
+  public function getFilename(){
+    if($this->hasAvatar()){
+      return $this->getMdAsset()->getFilename();
+    }else{
+      return false;
+    }
+  }
+
   public static function create($object){
     $base_dir = $object->getBaseDir();
     $object_dir = $object->getObjectDir();
