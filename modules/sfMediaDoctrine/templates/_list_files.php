@@ -5,7 +5,7 @@
     </a>
   <?php else: ?>
     <a href="<?php echo url_for('@sf_media_doctrine_change_avatar') . '?md_asset_album_id=' . $mdAssetAlbum->getId(); ?>">
-      <img src="/<?php echo $mdAssetAlbum->getUrl(220, 272); ?>" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" width="220" />
+      <img src="<?php echo $mdAssetAlbum->getUrl(220, 272); ?>" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" width="220" />
     </a>
   <?php endif; ?>
 </div>
