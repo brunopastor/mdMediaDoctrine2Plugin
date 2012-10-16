@@ -15,16 +15,15 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
   private $dimensions;
 
   public function getCachePath() {
-    $relative_path = $this->getRootPath();
-    return str_replace(sfConfig::get('app_sf_media_browser_root_dir', '/uploads'), '/cache', $relative_path);
+    return sfConfig::get('sf_web_dir') . '/cache/' . $this->getMdAssetAlbum()->getRelativePath();
   }
   
   public function getRootPath() {
-    return sfConfig::get('sf_web_dir') . $this->getMdAssetAlbum()->getRelativePath();
+    return sfConfig::get('sf_web_dir') . sfConfig::get('app_sf_media_browser_root_dir', '/uploads') . '/' . $this->getMdAssetAlbum()->getRelativePath();
   }
 
   public function getPath() {
-    return sfConfig::get('sf_web_dir') . $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
+    return sfConfig::get('sf_web_dir') . sfConfig::get('app_sf_media_browser_root_dir', '/uploads') . '/' . $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
   }
 
   /**
@@ -33,7 +32,7 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
    */
   public function getIcon() {
     if ($this->isImage()) {
-      return $this->getMdAssetAlbum()->getRelativePath() . '/.thumbnails/' . $this->getFilename();
+      return sfConfig::get('app_sf_media_browser_root_dir', '/uploads') . '/' . $this->getMdAssetAlbum()->getRelativePath() . '/.thumbnails/' . $this->getFilename();
     }
     return sfMediaBrowserUtils::getIconFromExtension(trim($this->getExtension(), '.'));
   }
@@ -51,7 +50,7 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
    * @throws Exception
    */
   public function getUrl($width, $height, $code = 'original', $proportional = false, $left = 0, $top = 0) {
-    if ($code == 'original') return $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
+    if ($code == 'original') return sfConfig::get('app_sf_media_browser_root_dir', '/uploads') . '/' . $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
 
     $cacheRootDir = $this->getCachePath() . '/.' . $width . 'x' . $height;
     $cacheFile = $cacheRootDir . '/' . $this->getFilename();
@@ -74,11 +73,11 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
         $img->saveAs($cacheFile);
       } catch (Exception $e) {
 
-        return $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
+        return sfConfig::get('app_sf_media_browser_root_dir', '/uploads') . '/' . $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename();
       }
     }
 
-    return str_replace(sfConfig::get('app_sf_media_browser_root_dir', 'uploads'), 'cache', $this->getMdAssetAlbum()->getRelativePath()) . '/.' . $width . 'x' . $height . '/' . $this->getFilename();
+    return '/cache/' . $this->getMdAssetAlbum()->getRelativePath() . '/.' . $width . 'x' . $height . '/' . $this->getFilename();
   }
 
   public function getSize() {
@@ -113,7 +112,7 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
 
     if ($this->isImage()) {
       if (!$this->dimensions) {
-        $this->dimensions = getimagesize(sfConfig::get('sf_web_dir') . $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename());
+        $this->dimensions = getimagesize(sfConfig::get('sf_web_dir') . sfConfig::get('app_sf_media_browser_root_dir', '/uploads') . '/' . $this->getMdAssetAlbum()->getRelativePath() . '/' . $this->getFilename());
       }
       return $this->dimensions;
     }

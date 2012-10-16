@@ -17,33 +17,25 @@ abstract class PluginmdAssetAlbum extends BasemdAssetAlbum
     return !is_null($this->getMdAssetFileId()) && $this->getMdAssetFileId() != '';
   }
   
-  public function getUrl($width, $height, $original = false){
+  public function getAvatarFilename(){
     if($this->hasAvatar()){
-      return $this->getMdAsset()->getUrl($width, $height, $original);      
-    }else{
-      return false;
-    }
-  }
-  
-  public function getFilename(){
-    if($this->hasAvatar()){
-      return $this->getMdAsset()->getFilename();
+      return $this->getRelativePath() . '/' . $this->getMdAsset()->getFilename();
     }else{
       return false;
     }
   }
 
-  public static function create($object){
+  public static function create($object, $name = 'Default', $description = ''){
     $base_dir = $object->getBaseDir();
     $object_dir = $object->getObjectDir();
-    $relative_path = sfConfig::get('app_sf_media_browser_root_dir') . '/' . $base_dir . '/' . $object_dir;
+    $relative_path = $base_dir . '/' . $object_dir;
     
     $mdAssetAlbum = new mdAssetAlbum();
-    $mdAssetAlbum->setName('Defecto');
+    $mdAssetAlbum->setName($name);
     $mdAssetAlbum->setObjectId($object->getId());
     $mdAssetAlbum->setObjectClass($object->getObjectClass());
     $mdAssetAlbum->setRelativePath($relative_path);
-    $mdAssetAlbum->setDescription('Album por defecto');
+    $mdAssetAlbum->setDescription($description);
     $mdAssetAlbum->save();
     
     return $mdAssetAlbum;

@@ -54,7 +54,7 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
    * @return void
    * @author 
    **/
-  public function getAvatarFilename($mdAssetAlbum = null){
+  public function getAvatarSrc($mdAssetAlbum = null){
     if(sfConfig::get('app_sf_media_browser_albums_enabled', false)){
       if($mdAssetAlbum === null){
         throw new Exception("Album must be implicit", 1);
@@ -63,7 +63,7 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
     }else{
       $mdAssetAlbum = $this->getAlbumes()->getFirst();
     }
-    return $mdAssetAlbum->getFilename();
+    return $mdAssetAlbum->getAvatarFilename();
   }
 
 
