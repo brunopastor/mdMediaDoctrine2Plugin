@@ -5,20 +5,6 @@
 
   <div id="sf_media_browser_user_message"></div>
 
-  <?php if ($sf_user->hasFlash('error')): ?>
-    <div class="error">
-
-      <?php echo __($sf_user->getFlash('error')); ?>
-
-    </div>
-  <?php elseif ($sf_user->hasFlash('notice')): ?>
-    <div class="notice">
-
-      <?php echo __($sf_user->getFlash('notice')); ?>
-
-    </div>
-  <?php endif ?>
-
   <!--<div id="sf_media_browser_forms">
   <?php //include_partial('sfMediaDoctrine/create_asset', array('upload_form' => $upload_form, 'object' => $object)); ?>
 
