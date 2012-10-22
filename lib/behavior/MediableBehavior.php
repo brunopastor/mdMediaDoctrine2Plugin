@@ -51,6 +51,26 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
     return (!$mdAssetAlbum ? false : $mdAssetAlbum->hasAvatar());
   }
 
+  
+/**
+   * return avatar file object from given album (or default if its not enable album usage)
+   *
+   * @return void
+   * @author 
+   **/
+  public function getAvatar($mdAssetAlbum = null){
+    if(sfConfig::get('app_sf_media_browser_albums_enabled', false)){
+      if($mdAssetAlbum === null){
+        throw new Exception("Album must be implicit", 1);
+      }
+      //TODO manage multiple albums logic
+    }else{
+      $mdAssetAlbum = $this->getAlbumes()->getFirst();
+    }
+    return $mdAssetAlbum->getMdAsset();
+  }
+
+
   /**
    * return avatar url from given album (or default if its not enable album usage)
    *
