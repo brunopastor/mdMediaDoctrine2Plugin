@@ -33,8 +33,7 @@
       <?php if (sfConfig::get('app_sf_media_browser_issuu_enabled')): ?>      
         <input type="button" value="Issuu" />
       <?php endif; ?>      
-
-      <a id="sf_open_uploader" class="iframe" href="<?php echo url_for('sfMediaUploader/uploader?object_id=' . $object->getId() . '&object_class=' . $object->getObjectClass()); ?>">Media</a>
+      <a id="sf_open_uploader" class="iframe" href="<?php echo url_for('sfMediaUploader/uploader?object_id=' . $object->getId() . '&object_class=' . $object->getObjectClass()); ?>">Subir archivos</a>
       <!-- <input type="button" value="Media" /> -->
     </div>
     <div class="clear"></div>

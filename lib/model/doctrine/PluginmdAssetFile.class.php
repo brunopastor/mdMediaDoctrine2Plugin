@@ -163,4 +163,22 @@ abstract class PluginmdAssetFile extends BasemdAssetFile {
     
   }
 
+  /**
+   * postSave method
+   * If the album does not have avatar, use this new file
+   *
+   * @return void
+   * @author maui
+   **/
+  public function postSave($event)
+  {
+    parent::postSave($event);
+
+    if($this->isImage() && !$this->getMdAssetAlbum()->hasAvatar()){
+      $this->getMdAssetAlbum()->setMdAssetFileId($this->getId());
+      $this->getMdAssetAlbum()->save();
+    }
+
+  }
+
 }
