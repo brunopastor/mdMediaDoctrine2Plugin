@@ -62,7 +62,7 @@ getFiles($md_album_id);
 4- Mostrar las imagenes en un bucle ej:
 <?php foreach ($files as $file): ?>
 
-  <img src="<?php $file->getUrl(200, 100, 'resize', true); ?>" />
+  <img src="<?php echo $file->getUrl(200, 100, 'resize', true); ?>" />
 
 <?php endforeach ?>
 
