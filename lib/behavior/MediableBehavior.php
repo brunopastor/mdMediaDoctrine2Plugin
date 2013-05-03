@@ -27,9 +27,11 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
 
   public function getFiles($md_album_id = null){
     if(is_null($md_album_id)){
-      $md_album_id = $this->getAlbumes()->getFirst()->getId();
+      $md_album = $this->getAlbumes()->getFirst()->getId();
+    }else{
+      $md_album = Doctrine::getTable('mdAssetAlbum')->find($md_album_id);
     }
-    return Doctrine::getTable('mdAssetFile')->retrieveFiles($md_album_id);
+    return $md_album->getMdAssets();
   }
 
 

@@ -104,16 +104,20 @@ mdMediaDoctrine.prototype = {
      * @param obj_id - Objeto duenio del contenido
      * @param obj_name  - Objeto duenio del contenido
      */
-  updateAssetList: function(obj_id, obj_name)
+  updateAssetList: function(obj_id, obj_name, album_id)
   {
     var self = this;
+    params = {
+        'object_class': obj_name, 
+        'object_id': obj_id, 
+      };
+    if(album_id !== undefined){
+      params['md_asset_album_id'] = album_id;
+    }
 
     $.ajax({
       url: '/backend.php/sf_media_doctrine/asset_update',
-      data: {
-        'object_class': obj_name, 
-        'object_id': obj_id
-      },
+      data: params,
       dataType: 'json',
       type: 'post',
       success: function(json){
@@ -142,6 +146,6 @@ mdMediaDoctrine.prototype = {
 }
 
 // CALLBACKS FOR swfupload widget handler
-function afterUpload(__MD_OBJECT_ID, __MD_OBJECT_CLASS){
-  mdMediaDoctrine.getInstance().updateAssetList(__MD_OBJECT_ID, __MD_OBJECT_CLASS)  
+function afterUpload(__MD_OBJECT_ID, __MD_OBJECT_CLASS, __MD_ALBUM_SELECTED_ID){
+  mdMediaDoctrine.getInstance().updateAssetList(__MD_OBJECT_ID, __MD_OBJECT_CLASS, __MD_ALBUM_SELECTED_ID)  
 }

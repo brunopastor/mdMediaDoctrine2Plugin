@@ -5,7 +5,7 @@ sf_media_doctrine:
 sf_media_doctrine_dir_create:
   url:    sf_media_doctrine/dir_create
   class:  sfRequestRoute
-  params: { module: sfMediaDoctrine, action: createAlbum }
+  params: { module: sfMediaDoctrine, action: createDirectory }
   requirements: { sf_method: post }
 
 sf_media_doctrine_dir_delete:

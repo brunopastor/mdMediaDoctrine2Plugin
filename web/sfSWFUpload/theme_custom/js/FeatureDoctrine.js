@@ -196,13 +196,15 @@ function endUpload(){
 
   if(parent.mdMediaDoctrine !== undefined)
   {
-    parent.mdMediaDoctrine.getInstance().updateAssetList(arguments[0], arguments[1]);
+    console.log('argumento2: ' + arguments[2]);
+    parent.mdMediaDoctrine.getInstance().updateAssetList(arguments[0], arguments[1], arguments[2]);
   }
   if(parent.mdImageFileGallery !== undefined)
   {
     parent.mdImageFileGallery.getInstance().mdImageFileGallery_UpdateImageAlbum(arguments[0]);
   }
   if(typeof parent.calledOnQueueCompleteBasicUploaderCallBack == 'function') {
+    console.log('entro aca sin album: ' + __MD_ALBUM_SELECTED_ID);
     parent.calledOnQueueCompleteBasicUploaderCallBack(__MD_OBJECT_ID, __MD_OBJECT_CLASS);
   } 
 }

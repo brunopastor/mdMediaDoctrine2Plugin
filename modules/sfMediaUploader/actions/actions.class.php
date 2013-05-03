@@ -21,18 +21,22 @@ class sfMediaUploaderActions extends sfActions {
       $this->redirect($request->getReferer());
     }
 
-    $this->album_id = $this->object->getAlbumes()->getFirst()->getId();    
+    if($request->hasParameter('md_asset_album_id')){
+      $this->album_id = $request->getParameter('md_asset_album_id');
+    }else{
+      $this->album_id = $this->object->getAlbumes()->getFirst()->getId();    
+    }
     
     $this->max_size = ini_get('upload_max_filesize');
 
     $options['widget'] = array(
         'upload_url' => url_for('sfMediaUploader/uploadAsset?' . ini_get('session.name') . '=' . session_id() . '&upload=mastodonte'), //ruta al action que procesa la imagen y la sube
-        'file_types' => sfConfig::get('sf_plugins_upload_content_type_', '*.jpg;*.jpeg;*.gif;*.png;*.JPG;*.JPEG;*.GIF;*.PNG'), //formatos soportados
+        'file_types' => sfConfig::get('app_sf_media_browser_upload_content_type', '*.jpg;*.jpeg;*.gif;*.png;*.JPG;*.JPEG;*.GIF'), //formatos soportados
         'max_filesize' => $this->max_size, //peso en bites máximo para cada imagen
         'file_upload_limit' => 0, //cantidad de archivos máximo que podemos subir
         'file_queue_limit' => 0, //
         'progress_style' => sfConfig::get('sf_plugins_upload_javascript_type_', 'swfupload-progressFile'), //     //javascript que dibuja el contenedor de imagenes subidas y thumbnails
-        'post_params' => '"object_id":' . $this->object_id . ',"object_class":"' . $this->object_class . '"', //
+        'post_params' => '"object_id":' . $this->object_id . ',"object_class":"' . $this->object_class . '", "md_asset_album_id":"' . $this->album_id . '"', //
         'upload_browse' => '<div id="image-browse" class="addbutton">' . __('mdMediaDoctrine_text_uploadFile') . '</div>', //diseño que mostramos el boton de subir, debe mantenerse el id default
         'debug' => false
     );

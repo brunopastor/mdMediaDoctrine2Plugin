@@ -23,17 +23,21 @@ class BasesfMediaDoctrineComponents extends sfComponents
     
     $this->dirs = $object->getAlbumes();
     $this->files = array();
-    $this->mdAssetAlbum = false;
-
-    if($this->dirs->count() > 0)
-    {
-      // list of files in default album
-      $this->files = $object->getFiles($this->dirs->getFirst()->getId());
-      $this->mdAssetAlbum = $this->dirs->getFirst();
+    
+    if(!isset($this->mdAssetAlbum)){
+      $this->mdAssetAlbum = false;
+      
+      if($this->dirs->count() > 0)
+      {
+        // list of files in default album
+        $this->files = $object->getFiles($this->dirs->getFirst()->getId());
+        $this->mdAssetAlbum = $this->dirs->getFirst();
+      }else{
+        $this->mdAssetAlbum = mdAssetAlbum::create($object);
+      }
     }else{
-      $this->mdAssetAlbum = mdAssetAlbum::create($object);
+      $this->files = $object->getFiles($this->mdAssetAlbum->getId());
     }
-
     // forms
     $this->upload_form = new mdAssetFileForm();
     $this->album_form = new mdAssetAlbumForm();

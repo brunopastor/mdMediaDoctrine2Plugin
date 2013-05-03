@@ -138,16 +138,20 @@ class BasesfMediaDoctrineActions extends sfActions {
     }
     
     $albumes = $object->getAlbumes();
-    $mdAssetAlbum = false;
+    if($request->hasParameter('md_asset_album_id')){
+      $mdAssetAlbum = mdAssetAlbumTable::getInstance()->find($request->getParameter('md_asset_album_id'));
+    }else{
+      $mdAssetAlbum = false;
 
-    if($albumes->count() > 0)
-    {
-      $mdAssetAlbum = $albumes->getFirst();
+      if($albumes->count() > 0)
+      {
+        $mdAssetAlbum = $albumes->getFirst();
+      }
     }
 
     $files = $object->getFiles($mdAssetAlbum->getId());
     
-    $partial = $this->getPartial('sfMediaDoctrine/list_files', array('files' => $files, 'mdAssetAlbum' => $mdAssetAlbum));
+    $partial = $this->getPartial('sfMediaDoctrine/list_files', array('object'=>$object, 'files' => $files, 'mdAssetAlbum' => $mdAssetAlbum));
     
     return $this->renderText(mdBasicFunction::basic_json_response(true, array('response' => $partial)));
   }

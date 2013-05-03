@@ -372,9 +372,9 @@ var MethodsForEvents = {
     flash_object.css('width', document.getElementById('image-browse').offsetWidth + "px");
     flash_object.css('left', document.getElementById('image-browse').offsetLeft + "px");
     flash_object.css('top', "0px");
-    if(typeof __MD_OBJECT_ID !== "undefined" && __MD_OBJECT_CLASS !== ""){
+    if(typeof __MD_OBJECT_ID !== "undefined" && __MD_OBJECT_CLASS !== "" && typeof __MD_ALBUM_SELECTED_ID !== "undefined"){
       if(typeof parent.afterUpload == 'function') {
-        parent.afterUpload(__MD_OBJECT_ID, __MD_OBJECT_CLASS);
+        parent.afterUpload(__MD_OBJECT_ID, __MD_OBJECT_CLASS, __MD_ALBUM_SELECTED_ID);
       }
     } else if(typeof __MD_OBJECT_CATEGORY !== "undefined"){
       if(parent.mdImageFileGallery !== undefined)

@@ -1,25 +1,54 @@
 <?php use_helper('mdMedia'); ?>
+  <div class="md-raw-top">
+    <h2><?php echo sprintf(__('Current directory : %s'), $mdAssetAlbum->getName()); ?></h2>
+    <div class="left">
+      <p><?php echo $files->count() . ' archivos'; ?></p>
+    </div>    
+    <div class="rigth">
+      <?php if (sfConfig::get('app_sf_media_browser_vimeo_enabled')): ?>
+        <input type="button" value="Vimeo" />
+      <?php endif; ?>
 
-<div id="droppable" class="ui-widget-header">
-  <?php if(!$mdAssetAlbum->hasAvatar()): ?>
-    <a href="<?php echo url_for('@sf_media_doctrine_change_avatar') . '?md_asset_album_id=' . $mdAssetAlbum->getId(); ?>">
-      <img src="/mdMediaDoctrine2Plugin/images/no_image.jpg" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" width="220" height="272" />
-    </a>
-  <?php else: ?>
-    <a href="<?php echo url_for('@sf_media_doctrine_change_avatar') . '?md_asset_album_id=' . $mdAssetAlbum->getId(); ?>">
-      <img src="<?php echo get_url($mdAssetAlbum->getAvatarFilename(), 220, 272, 'resizecrop'); ?>" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" />
-    </a>
-  <?php endif; ?>
-</div>
+      <?php if (sfConfig::get('app_sf_media_browser_youtube_enabled')): ?>      
+        <input type="button" value="Youtube" />
+      <?php endif; ?>
 
-<ul id="sf_media_browser_list">
+      <?php if (sfConfig::get('app_sf_media_browser_issuu_enabled')): ?>      
+        <input type="button" value="Issuu" />
+      <?php endif; ?>      
 
-  <?php foreach ($files as $file): ?>
-    <li id="file_<?php echo $file->getId(); ?>" class="file">
+      <a id="sf_open_uploader" class="sf_open_new_content iframe" href="<?php echo url_for('sfMediaUploader/uploader?object_id=' . $object->getId() . '&object_class=' . $object->getObjectClass() . '&md_asset_album_id=' . $mdAssetAlbum->getId()); ?>">Media</a>
+      <!-- <input type="button" value="Media" /> -->
+      <script type="text/javascript">
+          $('.sf_open_new_content').fancybox({ autoScale: true });
+      </script>
 
-      <?php include_partial('sfMediaDoctrine/icon', array('file' => $file)); ?>
+    </div>
+    <div class="clear"></div>
+  </div>
 
-    </li>
-  <?php endforeach ?>
+  
+    <div id="droppable" class="ui-widget-header">
+      <?php if(!$mdAssetAlbum->hasAvatar()): ?>
+        <a href="<?php echo url_for('@sf_media_doctrine_change_avatar') . '?md_asset_album_id=' . $mdAssetAlbum->getId(); ?>">
+          <img src="/mdMediaDoctrine2Plugin/images/no_image.jpg" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" width="220" height="272" />
+        </a>
+      <?php else: ?>
+        <a href="<?php echo url_for('@sf_media_doctrine_change_avatar') . '?md_asset_album_id=' . $mdAssetAlbum->getId(); ?>">
+          <img src="<?php echo get_url($mdAssetAlbum->getAvatarFilename(), 220, 272, 'resizecrop'); ?>" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" />
+        </a>
+      <?php endif; ?>
+    </div>
 
-</ul>
+    <ul id="sf_media_browser_list">
+
+      <?php foreach ($files as $file): ?>
+        <li id="file_<?php echo $file->getId(); ?>" class="file">
+
+          <?php include_partial('sfMediaDoctrine/icon', array('file' => $file)); ?>
+
+        </li>
+      <?php endforeach ?>
+
+    </ul>
+  

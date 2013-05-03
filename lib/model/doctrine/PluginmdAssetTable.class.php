@@ -16,4 +16,16 @@ class PluginmdAssetTable extends Doctrine_Table {
     return Doctrine_Core::getTable('PluginmdAsset');
   }
 
+  public function retrieveFiles($md_album_id, $query = false) {
+    $q = $this->createQuery('f')
+            ->innerJoin('f.mdAssetAlbum a')
+            ->where('f.md_album_id = ?', $md_album_id)
+            ->orderBy('f.position ASC');
+
+    if ($query)
+      return $q;
+    else
+      return $q->execute();
+  }
+
 }

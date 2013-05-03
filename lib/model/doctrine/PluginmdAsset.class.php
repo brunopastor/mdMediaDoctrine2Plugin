@@ -11,5 +11,8 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class PluginmdAsset extends BasemdAsset {
-  
+ 	
+ 	public function getMdAlbum(){
+ 		return mdAssetAlbumTable::getInstance()->find($this->getMdAlbumId());
+ 	} 
 }

@@ -39,5 +39,10 @@ abstract class PluginmdAssetAlbum extends BasemdAssetAlbum
     $mdAssetAlbum->save();
     
     return $mdAssetAlbum;
-  }  
+  } 
+
+  public function getObject(){
+    return Doctrine::getTable($this->getObjectClass())->find($this->getObjectId());
+  }
+
 }
