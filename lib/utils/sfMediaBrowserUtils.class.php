@@ -65,7 +65,7 @@ class sfMediaBrowserUtils
 
   static public function getIconFromExtension($extension)
   {
-    $dir = '/sfMediaBrowserPlugin/images/icons';
+    $dir = '/mdMediaDoctrine2Plugin/images/icons';
     $path = self::getIconsPath();
     if(file_exists($path.'/'.$extension.'.png'))
     {
@@ -108,7 +108,7 @@ class sfMediaBrowserUtils
 
   static public function getIconsDir()
   {
-    return '/sfMediaBrowserPlugin/images/icons';
+    return '/mdMediaDoctrine2Plugin/images/icons';
   }
   
   
