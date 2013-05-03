@@ -28,11 +28,11 @@ mdAssetAlbum:
     md_asset_file_id:
       type: integer
   relations:
-    mdAsset:
-      class: mdAssetFile
-      local: md_asset_file_id
-      foreign: id
-      type: one
+    mdAssets:
+      class: mdAsset
+      local: id
+      foreign: md_album_id
+      type: many
       foreignType: one
   indexes:
     uk_object_class_object_id:
@@ -58,6 +58,15 @@ mdAsset:
     md_album_id:
       type: integer
       notnull: true
+  relations:
+    mdAssetAlbum:
+      class: mdAssetAlbum
+      local: md_album_id
+      foreign: id
+      type: one
+      foreignAlias: mdAssets
+      onDelete: CASCADE
+
 
 mdAssetFile:
   inheritance:
@@ -83,14 +92,6 @@ mdAssetFile:
     uk_album_filename:
       fields: [md_album_id, filename]
       type: unique
-  relations:
-    mdAssetAlbum:
-      class: mdAssetAlbum
-      local: md_album_id
-      foreign: id
-      type: one
-      foreignAlias: mdAssets
-      onDelete: CASCADE
 
 ########################################
 
@@ -117,14 +118,7 @@ mdAssetYoutube:
       type: string(255)
     avatar:
       type: string(255)
-  relations:
-    mdAssetAlbum:
-      class: mdAssetAlbum
-      local: md_album_id
-      foreign: id
-      type: one
-      foreignAlias: mdAssets
-      onDelete: CASCADE
+
       
 mdAssetVimeo:
   inheritance:
@@ -163,14 +157,7 @@ mdAssetVimeo:
     # <author_url>http://www.vimeo.com/blakewhitman</author_url>
     author_url:
       type: string(255)
-  relations:
-    mdAssetAlbum:
-      class: mdAssetAlbum
-      local: md_album_id
-      foreign: id
-      type: one
-      foreignAlias: mdAssets
-      onDelete: CASCADE
+
       
 mdAssetIssuu:
   inheritance:
@@ -183,11 +170,4 @@ mdAssetIssuu:
     embed_code:
       type: text
       notnull: true
-  relations:
-    mdAssetAlbum:
-      class: mdAssetAlbum
-      local: md_album_id
-      foreign: id
-      type: one
-      foreignAlias: mdAssets
-      onDelete: CASCADE
+
