@@ -31,7 +31,7 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
     }else{
       $md_album = Doctrine::getTable('mdAssetAlbum')->find($md_album_id);
     }
-    return $md_album->getMdAssets();
+    return Doctrine::getTable('mdAssetFile')->getFilesByPosition($md_album);
   }
 
 

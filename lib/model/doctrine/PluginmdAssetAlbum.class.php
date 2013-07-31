@@ -12,6 +12,11 @@
  */
 abstract class PluginmdAssetAlbum extends BasemdAssetAlbum
 {
+
+  public function getAvatar(){
+    return mdAssetFileTable::getInstance()->findOneById($this->getMdAssetFileId());
+  }
+
   public function hasAvatar()
   {
     return !is_null($this->getMdAssetFileId()) && $this->getMdAssetFileId() != '';
@@ -19,7 +24,7 @@ abstract class PluginmdAssetAlbum extends BasemdAssetAlbum
   
   public function getAvatarFilename(){
     if($this->hasAvatar()){
-      return $this->getRelativePath() . '/' . $this->getMdAsset()->getFilename();
+      return $this->getRelativePath() . '/' . $this->getAvatar()->getFilename();
     }else{
       return false;
     }

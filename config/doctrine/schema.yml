@@ -29,7 +29,7 @@ mdAssetAlbum:
       type: integer
   relations:
     mdAssets:
-      class: mdAsset
+      class: mdAssetFile
       local: id
       foreign: md_album_id
       type: many
