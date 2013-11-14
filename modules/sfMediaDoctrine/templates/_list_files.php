@@ -41,7 +41,7 @@
     </div>
 
     <ul id="sf_media_browser_list">
-
+      
       <?php foreach ($files as $file): ?>
         <li id="file_<?php echo $file->getId(); ?>" class="file">
 
