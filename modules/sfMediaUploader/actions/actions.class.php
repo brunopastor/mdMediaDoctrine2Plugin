@@ -37,7 +37,7 @@ class sfMediaUploaderActions extends sfActions {
         'file_queue_limit' => 0, //
         'progress_style' => sfConfig::get('sf_plugins_upload_javascript_type_', 'swfupload-progressFile'), //     //javascript que dibuja el contenedor de imagenes subidas y thumbnails
         'post_params' => '"object_id":' . $this->object_id . ',"object_class":"' . $this->object_class . '", "md_asset_album_id":"' . $this->album_id . '"', //
-        'upload_browse' => '<div id="image-browse" class="addbutton">' . __('mdMediaDoctrine_text_uploadFile') . '</div>', //diseño que mostramos el boton de subir, debe mantenerse el id default
+        'upload_browse' => '<div id="image-browse" class="btn btn-success">' . 'Buscar' /*__('mdMediaDoctrine_text_uploadFile')*/ . '</div>', //diseño que mostramos el boton de subir, debe mantenerse el id default
         'debug' => false
     );
 

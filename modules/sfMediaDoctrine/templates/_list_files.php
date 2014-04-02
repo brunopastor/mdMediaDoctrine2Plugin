@@ -1,32 +1,33 @@
 <?php use_helper('mdMedia'); ?>
-  <div class="md-raw-top">
-    <h2><?php echo sprintf(__('Current directory : %s'), $mdAssetAlbum->getName()); ?></h2>
-    <div class="left">
-      <p><?php echo $files->count() . ' archivos'; ?></p>
-    </div>    
-    <div class="rigth">
-      <?php if (sfConfig::get('app_sf_media_browser_vimeo_enabled')): ?>
-        <input type="button" value="Vimeo" />
-      <?php endif; ?>
+  <fieldset>
+    <legend>Galerias</legend>
+    <div class="md-raw-top">
+      <!-- <h2><?php //echo sprintf(__('Current directory : %s'), $mdAssetAlbum->getName()); ?></h2> -->   
+      <div class="rigth">
+        <?php if (sfConfig::get('app_sf_media_browser_vimeo_enabled')): ?>
+          <input type="button" value="Vimeo" />
+        <?php endif; ?>
 
-      <?php if (sfConfig::get('app_sf_media_browser_youtube_enabled')): ?>      
-        <input type="button" value="Youtube" />
-      <?php endif; ?>
+        <?php if (sfConfig::get('app_sf_media_browser_youtube_enabled')): ?>      
+          <input type="button" value="Youtube" />
+        <?php endif; ?>
 
-      <?php if (sfConfig::get('app_sf_media_browser_issuu_enabled')): ?>      
-        <input type="button" value="Issuu" />
-      <?php endif; ?>      
+        <?php if (sfConfig::get('app_sf_media_browser_issuu_enabled')): ?>      
+          <input type="button" value="Issuu" />
+        <?php endif; ?>      
+        <!-- <input type="button" value="Media" /> -->
+        <script type="text/javascript">
+            $('.sf_open_new_content').fancybox({ 
+              fitToView : false,
+              height : '80%',
+              autoSize : false,
+              type : 'iframe'
+            });
+        </script>
 
-      <a id="sf_open_uploader" class="sf_open_new_content iframe" href="<?php echo url_for('sfMediaUploader/uploader?object_id=' . $object->getId() . '&object_class=' . $object->getObjectClass() . '&md_asset_album_id=' . $mdAssetAlbum->getId()); ?>">Media</a>
-      <!-- <input type="button" value="Media" /> -->
-      <script type="text/javascript">
-          $('.sf_open_new_content').fancybox({ autoScale: true });
-      </script>
-
+      </div>
+      <div class="clear"></div>
     </div>
-    <div class="clear"></div>
-  </div>
-
   
     <div id="droppable" class="ui-widget-header">
       <?php if(!$mdAssetAlbum->hasAvatar()): ?>
@@ -51,4 +52,9 @@
       <?php endforeach ?>
 
     </ul>
-  
+    <div class="clear"></div>
+  </fieldset>
+  <a id="sf_open_uploader" class="sf_open_new_content iframe btn btn-success pull-left" href="<?php echo url_for('sfMediaUploader/uploader?object_id=' . $object->getId() . '&object_class=' . $object->getObjectClass() . '&md_asset_album_id=' . $mdAssetAlbum->getId()); ?>">Agregar Imagenes</a>
+  <div class="pull-right">
+    <p><?php echo $files->count() . ' archivos'; ?></p>
+  </div> 
