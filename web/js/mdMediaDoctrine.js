@@ -31,7 +31,7 @@ mdMediaDoctrine.prototype = {
           data: {
             md_asset_file_id : data[1]
           },
-          url: self.find('a').attr('href'),
+          url: self.attr('action'),
           dataType: "json",
           success: function(json){
             self.find('img').attr('src', json.options.response);
