@@ -7,7 +7,7 @@
     <title>GALERIA</title>
     <?php use_plugin_javascript('mastodontePlugin', 'jquery/jquery-1.6.1.min.js', 'first'); ?>    
     <link rel="stylesheet" type="text/css" href="/mdMediaDoctrine2Plugin/sfSWFUpload/theme_custom/css/upload.css" />
-    <link rel="stylesheet" type="text/css" href="/bootstrapAdminThemePlugin/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/bootstrapSymfonyThemeAdminPlugin/css/bootstrap.css" />
     <script type="text/javascript" src="/mdMediaDoctrine2Plugin/sfSWFUpload/theme_custom/js/FeatureDoctrine.js"></script> 
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
