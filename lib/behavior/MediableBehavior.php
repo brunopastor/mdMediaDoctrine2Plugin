@@ -28,10 +28,11 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
   public function getFiles($md_album_id = null){
     if(is_null($md_album_id)){
       $md_album = $this->getAlbumes()->getFirst()->getId();
+      return Doctrine::getTable('mdAssetFile')->retrieveFiles($md_album);
     }else{
       $md_album = Doctrine::getTable('mdAssetAlbum')->find($md_album_id);
+      return Doctrine::getTable('mdAssetFile')->retrieveFiles($md_album->getId());
     }
-    return Doctrine::getTable('mdAssetFile')->getFilesByPosition($md_album);
   }
 
 
@@ -69,7 +70,7 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
     }else{
       $mdAssetAlbum = $this->getAlbumes()->getFirst();
     }
-    return $mdAssetAlbum->getMdAsset();
+    return $mdAssetAlbum->getAvatar();
   }
 
 
