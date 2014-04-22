@@ -70,7 +70,7 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
     }else{
       $mdAssetAlbum = $this->getAlbumes()->getFirst();
     }
-    return $mdAssetAlbum->getMdAsset();
+    return $mdAssetAlbum->getAvatar();
   }
 
 
