@@ -85,7 +85,7 @@ mdMediaDoctrine.prototype = {
         var data = arr.join(',');
 
         $.ajax({
-          url: '/backend_dev.php/sf_media_doctrine/file_sort',
+          url: '/backend.php/sf_media_doctrine/file_sort',
           data: {
             'priorities' : data
           },
