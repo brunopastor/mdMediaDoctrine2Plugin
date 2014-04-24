@@ -31,9 +31,9 @@
   
     <div id="droppable" class="ui-widget-header">
       <?php if(!$mdAssetAlbum->hasAvatar()): ?>
-          <img action="" src="/mdMediaDoctrine2Plugin/images/no_image.jpg" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" width="220" height="272" />
+          <img action="<?php echo url_for('@sf_media_doctrine_change_avatar') . '?md_asset_album_id=' . $mdAssetAlbum->getId(); ?>" src="/mdMediaDoctrine2Plugin/images/no_image.jpg" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" width="220" height="272" />
       <?php else: ?>
-          <img action="" src="<?php echo get_url($mdAssetAlbum->getAvatarFilename(), 220, 272, 'resizecrop'); ?>" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" />
+          <img action="<?php echo url_for('@sf_media_doctrine_change_avatar') . '?md_asset_album_id=' . $mdAssetAlbum->getId(); ?>" src="<?php echo get_url($mdAssetAlbum->getAvatarFilename(), 220, 272, 'resizecrop'); ?>" avatar="/mdMediaDoctrine2Plugin/images/no_image.jpg" alt="avatar" />
       <?php endif; ?>
     </div>
 
