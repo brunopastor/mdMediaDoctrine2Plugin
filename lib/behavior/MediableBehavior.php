@@ -25,14 +25,22 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
     return Doctrine::getTable('mdAssetAlbum')->retrieveByObject($this->getObjectClass(), $this->getObjectId());
   }
 
+  public function hasAlbums(){
+    $md_albums = $this->getAlbumes();
+    return (count($md_albums) == 0 ? false : true);
+  }
+
   public function getFiles($md_album_id = null){
     if(is_null($md_album_id)){
-      $md_album = $this->getAlbumes()->getFirst()->getId();
-      return Doctrine::getTable('mdAssetFile')->retrieveFiles($md_album);
+      if($this->hasAlbums()){
+        $md_album = $this->getAlbumes()->getFirst()->getId();
+        return Doctrine::getTable('mdAssetFile')->retrieveFiles($md_album);
+      }
     }else{
       $md_album = Doctrine::getTable('mdAssetAlbum')->find($md_album_id);
       return Doctrine::getTable('mdAssetFile')->retrieveFiles($md_album->getId());
     }
+    return false;
   }
 
 
