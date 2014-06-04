@@ -121,5 +121,173 @@ class sfMediaUploaderActions extends sfActions {
       return $this->renderText("NOK");
     }
   }
+  
+  public function executeUploaderEmbebidos(sfWebRequest $request)
+  {      
+      $this->object_class = $request->getParameter('object_class');
+      $this->object_id = $request->getParameter('object_id');
+      $this->object = Doctrine::getTable($this->object_class)->find($this->object_id);
 
+      $this->type = $request->getParameter('t', 'youtube');
+      
+      if (!$this->object) {
+        $this->getUser()->setFlash('error', 'object error');
+        $this->redirect($request->getReferer());
+      }
+
+      if($request->hasParameter('md_asset_album_id')){
+        $this->album_id = $request->getParameter('md_asset_album_id');
+      }else{
+        $this->album_id = $this->object->getAlbumes()->getFirst()->getId();    
+      }
+      $this->class = 'mdAsset' . ucfirst($this->type);
+      $classForm = $this->class . 'Form';
+      $this->form = new $classForm();
+
+      $template = $this->getContext()->getConfiguration()->getTemplateDir('sfMediaUploader', 'layout.php');
+      $this->setLayout($template . '/layout');
+  }
+  
+  public function executeProcessEmbededVideo(sfWebRequest $request)
+  {
+    // Obtenemos los parametros enviados desde el formulario
+    $postParameters = $request->getPostParameters();
+    $albumId = $postParameters["albumId"];
+    $objectId = $postParameters["objectId"];
+    $objectClass = $postParameters["objectClass"];
+    $type = $postParameters['mdVideoType'];
+
+    try{
+      
+      if(!$albumId)
+      {
+
+        $object = Doctrine::getTable($objectClass)->find($objectId);
+        $instance = mdMediaManager::getInstance(mdMediaManager::MIXED, $object)->load();
+        if(!$instance->hasAlbum("default"))
+        {
+          $options = array('title' => "default", 'description' => 'Este album tendra las imagenes para mostrar.', 'type' => mdMediaManager::MIXED);
+          $mdMediaAlbum = $instance->createAlbum($options);
+          $albumId = $mdMediaAlbum->getId();
+
+        }
+        else
+        {
+          throw new Exception("Error de javascript", 192);
+        }
+      }
+      switch ($type)
+      {
+        case mdVideosTypes::YOUTUBE:
+            $response = $this->saveYoutube($postParameters, $albumId);
+          break;
+        case mdVideosTypes::VIMEO:
+            $response = $this->saveVimeo($postParameters, $albumId);
+          break;
+        case mdVideosTypes::ISSUU:
+            $response = $this->saveIssuu($postParameters, $albumId);
+          break;
+        default: 
+            $response = array('response' => false);
+          break;
+      }
+
+      if($response['response'])
+      {
+        $body = $this->getPartial($type . "Upload", array('form'=> $response['form'], 'albumId' => $albumId, 'objectId' => $objectId, 'objectClass' => $objectClass));
+        return $this->renderText(mdBasicFunction::basic_json_response(true, array('body' => $body, 'object_id' => $objectId, 'object_class_name' => $objectClass)));
+      }
+      else
+      {
+        $body = $this->getPartial($type . "Upload", array('form'=> $response['form'], 'albumId' => $albumId, 'objectId' => $objectId, 'objectClass' => $objectClass));
+        return $this->renderText(mdBasicFunction::basic_json_response(false, array('body' => $body)));
+      }
+      
+    }catch(Exception $e){
+
+        return $this->renderText(mdBasicFunction::basic_json_response(false, array('message' => $e->getMessage())));        
+      
+    }
+  }
+  
+  private function saveYoutube($postParameters, $album_id)
+  {
+    $form = new mdMediaYoutubeVideoForm();
+    $params = $postParameters[$form->getName()];
+    $form->bind($params);
+    $response = array();
+    
+    if($form->isValid())
+    {
+      $mdYoutubeVideo = new mdMediaYoutubeVideo();
+      $mdYoutubeVideo->setMdUserIdTmp ( $this->getUser()->getMdUserId() );
+      $mdYoutubeVideo->setSrc($params["src"]);
+      $mdYoutubeVideo->setDescription($params["description"]);
+      $mdYoutubeVideo->save();
+      $album = Doctrine::getTable("mdMediaAlbum")->find($album_id);
+      $album->addContent($mdYoutubeVideo);
+      $response['response'] = true;
+    }
+    else
+    {
+      $response['response'] = false;
+    }
+    
+    $response['form'] = $form;
+    
+    return $response;
+  }
+  
+  private function saveVimeo($postParameters, $album_id)
+  {
+    $form = new mdMediaVimeoVideoForm();
+    $params = $postParameters[$form->getName()];
+    $form->bind($params);
+    
+    if($form->isValid())
+    {
+      $mdVimeoVideo = new mdMediaVimeoVideo();
+      $mdVimeoVideo->setMdUserIdTmp ( $this->getUser()->getMdUserId() );
+      $mdVimeoVideo->setVimeoUrl($params["vimeo_url"]);
+      $mdVimeoVideo->save();
+      $album = Doctrine::getTable("mdMediaAlbum")->find($album_id);
+      $album->addContent($mdVimeoVideo);
+      $response['response'] = true;
+    }
+    else
+    {
+      $response['response'] = false;
+    }
+    
+    $response['form'] = $form;
+    
+    return $response;   
+  }
+  
+  private function saveIssuu($postParameters, $album_id)
+  {
+    $form = new mdMediaIssuuVideoForm();
+    $params = $postParameters[$form->getName()];
+    $form->bind($params);
+    $response = array();
+    
+    if($form->isValid())
+    {
+      $mdIssuuVideo = new mdMediaIssuuVideo();
+      $mdIssuuVideo->setMdUserIdTmp ( $this->getUser()->getMdUserId() );
+      $mdIssuuVideo->setEmbedCode($params["embed_code"]);
+      $mdIssuuVideo->save();
+      $album = Doctrine::getTable("mdMediaAlbum")->find($album_id);
+      $album->addContent($mdIssuuVideo);
+      $response['response'] = true;
+    }
+    else
+    {
+      $response['response'] = false;
+    }
+    
+    $response['form'] = $form;
+    
+    return $response;
+  }
 }
