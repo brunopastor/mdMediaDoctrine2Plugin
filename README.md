@@ -1,6 +1,9 @@
 mdMediaDoctrine2Plugin
 ======================
 
+DEPENDENCIAS:
+  mastodontePlguin (mdBaseicPlguin). Sin este plugin no se podran subir archivos.
+
 USO BASICO:
 
 Para renderizar imagenes sin tener el behavior Mediable se debe:

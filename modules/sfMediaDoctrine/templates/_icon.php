@@ -30,7 +30,6 @@
 						text: "OK",
 						class: 'dialog-continue btn btn-success',
 						click: function() {
-							showLoading();
 							$.ajax({
 							  type: "POST",
 							  url: action,
@@ -44,7 +43,6 @@
 								  $('#droppable').find('img').attr('src', $('#droppable').find('img').attr('avatar'));
 								}
 								$('.dialog-cancel').trigger('click');
-								hideLoading();
 							  }
 							});
 						}
