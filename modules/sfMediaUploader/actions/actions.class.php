@@ -210,32 +210,17 @@ class sfMediaUploaderActions extends sfActions {
     }
   }
   
-  private function saveYoutube($postParameters, $album_id)
+  public function executeSaveYoutube(sfWebRequest $request)
   {
-    $form = new mdMediaYoutubeVideoForm();
-    $params = $postParameters[$form->getName()];
-    $form->bind($params);
-    $response = array();
-    
-    if($form->isValid())
-    {
-      $mdYoutubeVideo = new mdMediaYoutubeVideo();
-      $mdYoutubeVideo->setMdUserIdTmp ( $this->getUser()->getMdUserId() );
-      $mdYoutubeVideo->setSrc($params["src"]);
-      $mdYoutubeVideo->setDescription($params["description"]);
-      $mdYoutubeVideo->save();
-      $album = Doctrine::getTable("mdMediaAlbum")->find($album_id);
-      $album->addContent($mdYoutubeVideo);
-      $response['response'] = true;
-    }
-    else
-    {
-      $response['response'] = false;
-    }
-    
-    $response['form'] = $form;
-    
-    return $response;
+    $url = $request->getParameter('url');
+    $album_id = $request->getParameter('album_id');
+
+    $youtube = new mdAssetYoutube();
+    $youtube->setPath($url);
+    $youtube->setMdAlbumId($album_id);
+    $youtube->save();
+
+    return renderText(json_encode(array('response' => 'OK')));
   }
   
   private function saveVimeo($postParameters, $album_id)
