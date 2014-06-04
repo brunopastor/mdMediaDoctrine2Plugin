@@ -35,3 +35,7 @@ sf_media_doctrine_update_list:
 sf_media_doctrine_change_avatar:
   url:    sf_media_doctrine/change_avatar
   params: { module: sfMediaDoctrine, action: changeAvatar }
+
+sf_media_doctrine_save_yt:
+  url:    sf_media_doctrine/save_youtube
+  params: {module: sfMediaUploader, action: saveYoutube }

@@ -24,14 +24,14 @@ mdMediaDoctrine.prototype = {
         event.preventDefault();        
         
         var data = $(ui.draggable).attr('id').split('_');
-
         var self = $(this);
+
         $.ajax({
           type: "POST",
           data: {
             md_asset_file_id : data[1]
           },
-          url: self.find('a').attr('href'),
+          url: self.find('img').attr('action'),
           dataType: "json",
           success: function(json){
             self.find('img').attr('src', json.options.response);

@@ -2,16 +2,9 @@
 <?php use_javascripts_for_form($form) ?>
 
 <div class="dialog">
-  <div class="top">
-    <div class="headline upload">
-      <h2><?php echo __('mdMediaManager_text_titleUpload'); ?></h2>
-
-      <p class="description"><?php echo __('mdMediaManager_text_descriptionUpload'); ?></p>
-    </div>
-  </div>
 
   <div id="facts" class="facts">
-    <?php echo __('mdMediaManager_text_validExtensions'); ?> <?php echo sfConfig::get('sf_plugins_upload_content_type_', '*.jpg;*.jpeg;*.gif;*.png') ?><br /><!--<?php //echo __('mdMediaManager_text_maxUpload'); ?> 10 MB<br />-->
+    <span class="valid-files">Archivos Validos: *.jpg;*.jpeg;*.gif;*.png</span>
   </div>
 
   <div id="content">
@@ -35,5 +28,5 @@
 <div id="upload_container_overlay" class="upload_container" style="display:none"></div>
 
 <div id="upload_container" class="upload_progress" style="display:none">
-  <div class="progressWindow"><?php echo __('mdMediaManager_text_uploading'); ?>...</div>
+  <div class="progressWindow">Cargando...</div>
 </div>

@@ -20,7 +20,6 @@ class BasesfMediaDoctrineComponents extends sfComponents
   public function executeGallery(sfWebRequest $request) {
     // list of albumes of object $object
     $object = $this->object;
-    
     $this->dirs = $object->getAlbumes();
     $this->files = array();
     
