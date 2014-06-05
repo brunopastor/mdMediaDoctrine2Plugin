@@ -137,8 +137,10 @@ class sfMediaUploaderActions extends sfActions {
 
       if($request->hasParameter('md_asset_album_id')){
         $this->album_id = $request->getParameter('md_asset_album_id');
+        $this->album = mdAssetAlbumTable::getInstance()->findOneById($this->album_id);
       }else{
-        $this->album_id = $this->object->getAlbumes()->getFirst()->getId();    
+        $this->album = $this->object->getAlbumes()->getFirst();
+        $this->album_id = $this->album->getId();    
       }
       $this->class = 'mdAsset' . ucfirst($this->type);
       $classForm = $this->class . 'Form';
@@ -215,7 +217,11 @@ class sfMediaUploaderActions extends sfActions {
     $url = $request->getParameter('url');
     $album_id = $request->getParameter('album_id');
 
-    $youtube = new mdAssetYoutube();
+    if (!($youtube = mdAssetYoutubeTable::getInstance()->findOneByMdAlbumId($album_id)))
+    {
+      $youtube = new mdAssetYoutube();
+    }
+
     $youtube->setPath($url);
     $youtube->setMdAlbumId($album_id);
     $youtube->save();

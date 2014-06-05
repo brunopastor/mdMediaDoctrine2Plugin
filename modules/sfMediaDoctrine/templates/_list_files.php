@@ -28,7 +28,13 @@
 
         </li>
       <?php endforeach ?>
-
+      <?php if ($yt = $mdAssetAlbum->getYouTube()): ?> 
+        <li>
+          <iframe width="320" height="240"
+          src="<?php echo '//www.youtube.com/embed/'.$yt->getPath() ?>">
+          </iframe>
+        </li>
+      <?php endif; ?>
     </ul>
     <div class="clear"></div>
   </fieldset>
@@ -49,7 +55,8 @@
   </div> 
   <script type="text/javascript">
       $('.sf_open_new_content').fancybox({ 
-        fitToView : false,
+        fitToView : true,
+        width: '580px',
         height : '80%',
         autoSize : false,
         type : 'iframe'
