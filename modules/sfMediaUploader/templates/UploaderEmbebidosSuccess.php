@@ -34,10 +34,10 @@
 			url : send,
 			data: data,
 			dataType: 'json',
-			success: function(json){
+			complete: function(json){
+				parent.$.fancybox.close();
+				parent.window.location.reload()
 			}
 		})
-		parent.$.fancybox.close();
-		parent.window.location.reload()
 	})
 </script>
