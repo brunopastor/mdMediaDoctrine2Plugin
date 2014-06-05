@@ -35,6 +35,13 @@ class Doctrine_Template_Mediable extends Doctrine_Template {
     }
   }
 
+  public function getYoutube($md_album_id = null){
+      if(is_null($md_album_id)){
+        $md_album_id = $this->getAlbumes()->getFirst()->getId();
+      }
+      return mdAssetYoutubeTable::getInstance()->findOneByMdAlbumId($md_album_id);
+    }
+
 
   /**
    * return boolean if has avatar from given album (or default if its not enable album usage)
