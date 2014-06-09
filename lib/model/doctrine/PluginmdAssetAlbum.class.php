@@ -50,4 +50,9 @@ abstract class PluginmdAssetAlbum extends BasemdAssetAlbum
     return Doctrine::getTable($this->getObjectClass())->find($this->getObjectId());
   }
 
+  public function getYouTube()
+  {
+    return mdAssetYoutubeTable::getInstance()->getVideoByAlbum($this->getId());
+  }
+
 }

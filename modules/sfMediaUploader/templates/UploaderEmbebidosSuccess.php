@@ -2,7 +2,7 @@
 	<?php use_stylesheets_for_form($form) ?>
 	<?php use_javascripts_for_form($form) ?>
 	<div id="preview">
-	<?php if($yt = $album->getYouTube()): ?>
+	<?php if($yt = $album->getYoutube()): ?>
 		<iframe width="560" height="315"
 		src="<?php echo '//www.youtube.com/embed/'.$yt->getPath() ?>">
 		</iframe>

@@ -28,7 +28,7 @@
 
         </li>
       <?php endforeach ?>
-      <?php if ($yt = $mdAssetAlbum->getYouTube()): ?> 
+      <?php if ($yt = $mdAssetAlbum->getYoutube()): ?> 
         <li>
           <iframe width="320" height="240"
           src="<?php echo '//www.youtube.com/embed/'.$yt->getPath() ?>">

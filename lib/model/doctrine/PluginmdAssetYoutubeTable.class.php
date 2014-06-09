@@ -16,4 +16,12 @@ class PluginmdAssetYoutubeTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginmdAssetYoutube');
     }
+
+    public function getVideoByAlbum($album_id)
+    {
+    	$yt = $this->createQuery('yt')
+    			   ->where('yt.md_album_id =?', $album_id)
+    			   ->fetchOne();
+    	return $yt;
+    }
 }
