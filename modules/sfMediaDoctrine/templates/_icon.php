@@ -12,49 +12,28 @@
 <script>
 	$(document).ready(function() {
 		$('.delete-file').click(function(e){
+			e.stopImmediatePropagation();
 			e.preventDefault();
-
 			self = $(this);
 			action = $(this).attr('href');
-			title = 'Eliminar Archivo'
-			content = 'Seguro que quieres borrar este archivo?';
-
-			$('.alert-dialog').dialog({
-				modal: true,
-				resizable: false,
-				title: title,
-				hide: 'drop',
-				show: 'drop',
-				buttons: [
-					{ 
-						text: "OK",
-						class: 'dialog-continue btn btn-success',
-						click: function() {
-							$.ajax({
-							  type: "POST",
-							  url: action,
-							  dataType: "json",
-							  success: function(data){
-								// delete file from list
-								self.parents('.file').fadeOut();
-							  
-								// update avatar if it has been deleted
-								if(data.options.is_avatar){
-								  $('#droppable').find('img').attr('src', $('#droppable').find('img').attr('avatar'));
-								}
-								$('.dialog-cancel').trigger('click');
-							  }
-							});
-						}
-					},
-					{
-						text: "Cancelar",
-						class: 'dialog-cancel btn btn-danger',
-						click: function() { 
-						$(this).dialog('close'); 
+			
+			var del = confirm('Desea borrar la imagen?');
+			if (del) {
+				$.ajax({
+				  type: "POST",
+				  url: action,
+				  dataType: "json",
+				  success: function(data){
+					// delete file from list
+					self.parents('.file').fadeOut();
+				  
+					// update avatar if it has been deleted
+					if(data.options.is_avatar){
+					  $('#droppable').find('img').attr('src', $('#droppable').find('img').attr('avatar'));
 					}
-				}]
-			});
+				  }
+				});
+			}
 		});
 	});
 </script>

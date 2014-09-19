@@ -96,6 +96,13 @@ class BasesfMediaDoctrineActions extends sfActions {
 
   }
 
+  public function executeDeleteYt(sfWebRequest $request) {
+    $md_asset_yt = Doctrine::getTable('mdAssetYoutube')->find($request->getParameter('yt'));
+    $is_avatar = false;
+    $md_asset_yt->delete();
+
+    return $this->renderText(mdBasicFunction::basic_json_response(true, array('is_avatar' => $is_avatar)));
+  }
   public function executeDeleteFile(sfWebRequest $request) {
     $md_asset_file = Doctrine::getTable('mdAssetFile')->find($request->getParameter('file'));
 

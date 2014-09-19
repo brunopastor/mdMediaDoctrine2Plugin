@@ -29,11 +29,40 @@
         </li>
       <?php endforeach ?>
       <?php if ($yt = $mdAssetAlbum->getYoutube()): ?> 
-        <li>
+        <li class="file">
+          <a class="btn-warning delete-file" href="<?php echo url_for('@sf_media_doctrine_yt_delete?yt='.$yt->getId()) ?>"><span class="glyphicon glyphicon-trash"></span>  </a>
           <iframe width="320" height="240"
           src="<?php echo '//www.youtube.com/embed/'.$yt->getPath() ?>">
           </iframe>
         </li>
+        <script>
+          $(document).ready(function() {
+            $('.delete-file').click(function(e){
+              e.stopImmediatePropagation();
+              e.preventDefault();
+              self = $(this);
+              action = $(this).attr('href');
+              
+              var del = confirm('Desea borrar la imagen?');
+              if (del) {
+                $.ajax({
+                  type: "POST",
+                  url: action,
+                  dataType: "json",
+                  success: function(data){
+                  // delete file from list
+                  self.parents('.file').fadeOut();
+                  
+                  // update avatar if it has been deleted
+                  if(data.options.is_avatar){
+                    $('#droppable').find('img').attr('src', $('#droppable').find('img').attr('avatar'));
+                  }
+                  }
+                });
+              }
+            });
+          });
+        </script>
       <?php endif; ?>
     </ul>
     <div class="clear"></div>

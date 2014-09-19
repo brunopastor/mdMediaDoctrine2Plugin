@@ -20,6 +20,10 @@ sf_media_doctrine_file_create:
   params: { module: sfMediaDoctrine, action: createFile }
   requirements: { sf_method: post }
 
+sf_media_doctrine_yt_delete:
+  url:    sf_media_doctrine/yt_delete
+  params: { module: sfMediaDoctrine, action: deleteYt }
+
 sf_media_doctrine_file_delete:
   url:    sf_media_doctrine/file_delete
   params: { module: sfMediaDoctrine, action: deleteFile }
