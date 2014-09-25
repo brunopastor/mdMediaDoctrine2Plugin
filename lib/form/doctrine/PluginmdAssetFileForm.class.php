@@ -32,11 +32,12 @@ abstract class PluginmdAssetFileForm extends BasemdAssetFileForm {
   public function save($con = null) {
     
     $post_file = $this->getValue('filename');
-
+    $array_name = explode('.',$post_file->getOriginalName());
+    $extension = array_pop($array_name);
     $params = array(
         'type' => $post_file->getType(),
         'filesize' => $post_file->getSize(),
-        'extension' => $post_file->getExtension()
+        'extension' => '.'.$extension
     );
 
     $tainted = $this->getTaintedValues();
