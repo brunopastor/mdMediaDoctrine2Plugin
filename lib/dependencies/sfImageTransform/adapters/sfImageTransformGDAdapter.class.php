@@ -395,7 +395,7 @@ class sfImageTransformGDAdapter extends sfImageTransformAdapterAbstract
         case 'image/jpg':
           if (is_null($this->quality))
           {
-            $this->quality = 75;
+            $this->quality = 100;
           }
           $output = $this->creators[$mime]($this->holder,$file,$this->getImageSpecificQuality($this->quality, $mime));
           break;
